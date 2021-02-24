@@ -5,6 +5,7 @@ using namespace std;
 
 int main() {
 	
+
 	// invalid arguement
 	stringstream invalid_arg("12 4.4 invalid_arguement");
 	QuadEq ia;

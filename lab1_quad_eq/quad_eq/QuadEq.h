@@ -9,17 +9,13 @@
 class QuadEq
 {
 private:
-	double a;
-	double b;
-	double c;
-	int type;
-	int EqType() const;
-
+	std::vector <double> coef;
+	double LinEqRoot(double k, double c) const;
+	std::vector <double> NonZeroCoefRoot() const;
 public:
-	QuadEq(const double a_, const double b_, const double c_);
-	QuadEq();
+	QuadEq(const double a, const double b, const double c);
+	QuadEq() {};
 	double Det() const;
-	//size_t RootAmount() const;
 	std::vector <double> Roots() const;
 	void PrintRoots() const;
 
