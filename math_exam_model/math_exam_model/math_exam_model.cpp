@@ -8,18 +8,58 @@ Tasks::Tasks(ifstream& file)
 		throw exception("File with tasks not found");
 	}
 	QuadEq eq;
-	int num;
 	while (!file.eof())
 	{
-		file >> num;
 		file >> eq;
-		_eqs.emplace_back(num,eq);
+		_eqs.push_back(eq);
 	}
 	
 }
 
+vector<Student> init_simple_student_group()
+{
+	vector<Student> group;
+	srand(static_cast<unsigned>(time(nullptr)));
+	group.emplace_back("Ivanov", static_cast<student_type>(rand() % 3));
+	group.emplace_back("Pertov", static_cast<student_type>(rand() % 3));
+	group.emplace_back("Sidorov", static_cast<student_type>(rand() % 3));
+	group.emplace_back("Kuznetsov", static_cast<student_type>(rand() % 3));
+	group.emplace_back("Plotnikov", static_cast<student_type>(rand() % 3));
+	return group;
+}
 
-Solution Student::solve_task(const QuadEq& eq) const
+//void give_tasks(std::vector<Student>& group, int eq_per_student, std::ifstream& tasks_file)
+//{
+//	try
+//	{
+//		Tasks eqs(tasks_file);
+//		for (auto& v:eqs._eqs)
+//		{
+//			v.print_roots();
+//			cout << endl;
+//		}
+//
+//		const size_t num_eqs = eqs._eqs.size();
+//		srand(static_cast<unsigned>(time(nullptr)));
+//		for (int i = 0; i < eq_per_student; i++) {
+//			for (auto& student : group)
+//			{
+//				student.get_task(eqs._eqs[rand() % num_eqs]);
+//			}
+//		}
+//	} catch(exception& exc) {
+//		cout << exc.what() << endl;
+//	}
+//
+//}
+
+
+void Student::get_task(const QuadEq& eq)
+{
+	_eq = eq;
+}
+
+Solution Student::solve_task() const
 {
 	vector<double> roots;
 	if (_type == bad)
@@ -28,20 +68,20 @@ Solution Student::solve_task(const QuadEq& eq) const
 	}
 	else
 	{
-		roots = eq.roots();
+		roots = _eq.roots();
 		if (_type == avg)
 		{
-			srand(time(0));
+			srand(static_cast<unsigned>(time(nullptr)));
 			if (rand() % 2)
 				roots = { 0 };
 		}
 	}
-	return { _name, roots, eq};
+	return { _name + to_string(_type), roots, _eq};
 }
 
-void Student::send_task(Teacher& teacher, const QuadEq& eq) const
+void Student::send_task(Teacher& teacher) const
 {
-	teacher.collect_solutions(solve_task(eq));
+	teacher.collect_solutions(solve_task());
 }
 
 
@@ -61,6 +101,7 @@ void Teacher::review_solutions()
 		if (sol._eq.roots() == sol._roots)
 			_performance_table[sol._name]++;
 	}
+	_queue_solutions.clear();
 }
 
 void Teacher::print_table() const

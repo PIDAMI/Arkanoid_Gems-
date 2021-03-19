@@ -34,16 +34,16 @@ std::ifstream& operator>>(std::ifstream& stream, QuadEq& eq);
 
 enum student_type
 {
-	good,
-	avg,
-	bad
+	good = 0,
+	avg = 1,
+	bad = 2
 };
 
 
 
 struct Tasks
 {
-	std::vector<std::tuple<int,QuadEq>> _eqs;
+	std::vector<QuadEq> _eqs;
 	Tasks(std::ifstream& file);
 
 };
@@ -78,13 +78,29 @@ class Student
 private:
 	const std::string _name;
 	const student_type _type;
+	QuadEq _eq;
 public:
-	Student(std::string name,const student_type& type = static_cast<student_type>(rand() % 3)) :_name(std::move(name)), _type(type) {};
-	Solution solve_task(const QuadEq& eq) const;
-	void send_task(Teacher& teacher, const QuadEq& eq) const;
+	Student(std::string name, const student_type& type) :_name(std::move(name)), _type(type) {};
+	void get_task(const QuadEq& eq);
+	Solution solve_task() const;
+	void send_task(Teacher& teacher) const;
 };
 
 
+std::vector<Student> init_simple_student_group();
+
+inline void give_tasks(std::vector<Student>& group,const Tasks& eqs) {
+
+	const size_t num_eqs = eqs._eqs.size();
+	srand(static_cast<unsigned>(time(nullptr)));
+	for (auto& student : group)
+	{
+		student.get_task(eqs._eqs[rand() % num_eqs]);
+	}
+
+}
+
+//void give_tasks(std::vector<Student>& group, int eq_per_student, std::ifstream& tasks_file);
 
 
 
