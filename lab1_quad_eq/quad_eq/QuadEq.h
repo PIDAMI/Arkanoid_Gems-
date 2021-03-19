@@ -1,11 +1,10 @@
 #pragma once
-#ifndef QUADEQ
-#define QUADEQ
+
 #include <vector>
 #include <cmath>
 #include <string>
 #include <iostream>
-#include <istream>
+#include <fstream>
 class QuadEq
 {
 private:
@@ -21,6 +20,6 @@ public:
 
 };
 
-std::istream& operator>>(std::istream& stream, QuadEq& eq);
-#endif // !QUADEQ
+std::ifstream& operator>>(std::ifstream& stream, QuadEq& eq);
+
 

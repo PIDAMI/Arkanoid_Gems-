@@ -86,7 +86,10 @@ void QuadEq::PrintRoots() const{
 	cout << endl;
 }
 
-istream& operator>>(istream& stream, QuadEq& eq) {
+//std::ifstream& operator>>(std::ifstream& stream, QuadEq& eq);
+
+
+ifstream& operator>>(ifstream& stream, QuadEq& eq) {
 	double a, b, c;
 	if (!(stream >> a >> b >> c)) {
 		cout << "Invalid input" << endl;
