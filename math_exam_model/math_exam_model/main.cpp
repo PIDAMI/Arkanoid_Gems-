@@ -9,50 +9,26 @@ int main()
 	ifstream file("tasks.txt");
 	if (!file.is_open())
 	{
-		cout << "tasks file not found" << endl;
+		cout << "File with tasks not found";
 		exit(1);
 	}
 
-	try
+	
+	srand(static_cast<unsigned>(time(nullptr)));
+	auto group = init_simple_student_group();
+	const Tasks tasks(file);
+	int num_eqs = tasks._eqs.size();
+	Teacher teacher;
+	int eq_per_student = 5;
+	for (int i = 0; i < eq_per_student; i++)
 	{
-		auto group = init_simple_student_group();
-		const Tasks eqs(file);
-		give_tasks(group, eqs);
-		Teacher t;
-		/*for (auto& st:group)
+		for (auto& student : group)
 		{
-			st.send_task(t);
+			student.send_task(teacher, tasks._eqs[rand() % num_eqs]);
 		}
-		give_tasks(group, eqs);
-		for (auto& st : group)
-		{
-			st.send_task(t);
-		}
-		t.review_solutions();
-		t.print_table();
-
-
-
-		cout << endl;
-		give_tasks(group, eqs);
-		for (auto& st : group)
-		{
-			st.send_task(t);
-		}*/
-		Student s("kek", avg);
-		s.get_task({ 0,4,1 });
-		s.send_task(t);
-		s.get_task({ 0,4,0 });
-		s.send_task(t);
-		s.get_task({ 0,4,3 });
-		s.send_task(t);
-		s.get_task({ 0,4,9 });
-		s.send_task(t);
-		t.review_solutions();
-		t.print_table();
-	} catch(exception& exc) {
-		cout << exc.what() << endl;
 	}
+	teacher.review_solutions();
+	teacher.print_table();
 
 	
 	return 0;
