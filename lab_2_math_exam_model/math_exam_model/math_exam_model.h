@@ -32,14 +32,6 @@ public:
 std::ifstream& operator>>(std::ifstream& stream, QuadEq& eq);
 
 
-enum student_type
-{
-	good = 0,
-	avg = 1,
-	bad = 2
-};
-
-
 
 struct Tasks
 {
@@ -53,8 +45,8 @@ struct Solution
 	std::string _name;
 	std::vector<double> _roots;
 	QuadEq _eq;
-	Solution(std::string name, std::vector<double> roots, QuadEq eq) :
-	_name(std::move(name)), _roots(std::move(roots)), _eq(std::move(eq)){};
+	Solution(const std::string& name,const std::vector<double>& roots,const QuadEq& eq) :
+	_name(name), _roots(roots), _eq(eq){};
 	Solution() {};
 };
 
@@ -77,13 +69,30 @@ class Student
 {
 private:
 	const std::string _name;
-	const student_type _type;
 public:
-	Student(std::string name, const student_type& type) :_name(std::move(name)), _type(type) {};
-	Solution solve_task(const QuadEq& eq) const;
+	Student(const std::string& name) :_name(name) {};
+	virtual Solution solve_task(const QuadEq& eq) const = 0;
 	void send_task(Teacher& teacher, const QuadEq& eq) const;
+	std::string get_name() const { return _name; };
 };
 
-std::vector<Student> init_simple_student_group();
+std::vector<Student*> init_simple_student_group();
+
+class GoodStudent :public Student {
+public:
+	GoodStudent(const std::string& name) :Student(name) {};
+	Solution solve_task(const QuadEq& eq) const;
+};
+
+class AvgStudent :public Student {
+public:
+	AvgStudent(const std::string& name) :Student(name) {};
+	Solution solve_task(const QuadEq& eq) const;
+};
 
 
+class BadStudent :public Student {
+public:
+	BadStudent(const std::string& name) :Student(name) {};
+	Solution solve_task(const QuadEq& eq) const;
+};

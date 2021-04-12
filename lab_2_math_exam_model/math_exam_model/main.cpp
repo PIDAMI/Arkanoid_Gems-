@@ -6,6 +6,9 @@ using namespace std;
 
 int main()
 {
+
+
+	
 	ifstream file("tasks.txt");
 	if (!file.is_open())
 	{
@@ -24,12 +27,11 @@ int main()
 	{
 		for (auto& student : group)
 		{
-			student.send_task(teacher, tasks._eqs[rand() % num_eqs]);
+			student->send_task(teacher, tasks._eqs[rand() % num_eqs]);
 		}
 	}
 	teacher.review_solutions();
 	teacher.print_table();
 
-	
 	return 0;
 }
