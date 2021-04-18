@@ -81,21 +81,25 @@ void Teacher::collect_solutions(const Solution& solution)
 }
 
 
-void Teacher::review_solutions() 
+Table Teacher::get_table()
 {
+	map<string,int> table;
+
 	for (const auto& sol:_queue_solutions)
 	{
-		_performance_table[sol._name];
+		table[sol._name];
 		if (sol._eq.roots() == sol._roots)
-			_performance_table[sol._name]++;
+			table[sol._name]++;
 	}
 	_queue_solutions.clear();
+	return Table(table);
 }
 
-void Teacher::print_table() const
+void Table::print() const
 {
+	if (_performance_table.empty())
+		cout << "empty table";
+	
 	for (const auto& [student,num]:_performance_table)
-	{
 		cout << student << ": " << num << endl;
-	}
 }

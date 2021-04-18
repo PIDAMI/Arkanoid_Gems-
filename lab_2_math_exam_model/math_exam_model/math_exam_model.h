@@ -10,8 +10,9 @@
 #include <map>
 #include <ctime>
 #include <random>
+#define ZERO_THRESHHOLD 1e-10
 
-
+bool is_zero(double x);
 
 class QuadEq
 {
@@ -50,17 +51,22 @@ struct Solution
 	Solution() {};
 };
 
+class Table {
+private:
+	std::map<std::string, int> _performance_table;
+public:
+	Table(const std::map<std::string, int>& table) :_performance_table(table) {};
+	void print() const;
+};
 
 class Teacher
 {
 private:
 	std::vector<Solution> _queue_solutions;
-	std::map<std::string, int> _performance_table;
 public:
 	Teacher() {};
 	void collect_solutions(const Solution& solution);
-	void review_solutions() ;
-	void print_table() const;
+	Table get_table();
 };
 
 

@@ -2,6 +2,10 @@
 using namespace std;
 
 
+bool is_zero(double x) {
+	return abs(x) < ZERO_THRESHHOLD ? true : false;
+}
+
 QuadEq::QuadEq(const double a, const double b, const double c) {
 	_coef.push_back(a);
 	_coef.push_back(b);
@@ -14,7 +18,7 @@ double QuadEq::det() const {
 
 // solve linear equation kx + c = 0
 double QuadEq::lin_eq_root(double k, double c) const {
-	return !c ? 0 : -c / k;
+	return !is_zero(c) ? 0.0 : -c / k;
 }
 
 vector <double> QuadEq::non_zero_coef_root() const {
@@ -23,7 +27,7 @@ vector <double> QuadEq::non_zero_coef_root() const {
 	double b = _coef[1];
 	double c = _coef[2];
 	vector <double> res;
-	if (!determ)
+	if (is_zero(determ))
 		res.push_back(-b / (2 * a));
 	else if (determ > 0) {
 		res.push_back((-b + sqrt(determ)) / (2 * a));
@@ -42,16 +46,16 @@ vector <double> QuadEq::roots() const {
 		double a = _coef[0];
 		double b = _coef[1];
 		double c = _coef[2];
-		if (!a) {
+		if (is_zero(a)) {
 			// bx + c = 0
-			if (b)
+			if (!is_zero(b))
 				roots.push_back(lin_eq_root(b, c));
 		}
-		else if (!c) {
+		else if (is_zero(c)) {
 			// ax^2 = 0
 			roots.push_back(0);
 			// x (ax + b) = 0
-			if (b)
+			if (!is_zero(b))
 				roots.push_back(lin_eq_root(a, b));
 		}
 		else {

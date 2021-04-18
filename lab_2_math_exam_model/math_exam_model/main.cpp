@@ -3,7 +3,6 @@
 
 using namespace std;
 
-
 int main()
 {
 
@@ -30,8 +29,8 @@ int main()
 			student->send_task(teacher, tasks._eqs[rand() % num_eqs]);
 		}
 	}
-	teacher.review_solutions();
-	teacher.print_table();
+	Table performance_table = teacher.get_table();
+	performance_table.print();
 
 	return 0;
 }
