@@ -6,7 +6,6 @@ using namespace sf;
 int main() {
 
 
-	std::cout << Gem::w;
-
+	
 	return 0;
 }
