@@ -9,8 +9,12 @@ void Gem::set_color(COLORS color) {
 		setFillColor(sf::Color::Green);
 	if (color == COLORS::RED)
 		setFillColor(sf::Color::Red);
-	if (color == COLORS::WHITE)
-		setFillColor(sf::Color::White);
+	if (color == COLORS::CYAN)
+		setFillColor(sf::Color::Cyan);
+	if (color == COLORS::BLACK)
+		setFillColor(sf::Color::Black);
+	if (color == COLORS::Magenta)
+		setFillColor(sf::Color::Magenta);
 
 }
 
