@@ -2,7 +2,6 @@
 #include <cmath>
 #include <vector>
 #include <set>
-
 #include "SFML/Graphics.hpp"
 
 

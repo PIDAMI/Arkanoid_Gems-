@@ -22,8 +22,8 @@ private:
 	COLORS _color;
 	std::shared_ptr<Bonus> _bonus;
 
-	
 private:
+
 	void set_bonus(std::shared_ptr<Bonus> bonus) { _bonus = bonus; }
 
 public:
