@@ -1,16 +1,10 @@
 #include "Bonus.h"
-
-
 #include <set>
 using namespace std;
 
-// 1 2 3
-// 3 2 1
-// 2x3
-
 
 //
-vector<sf::Vector2i> Paint::activate(const sf::Vector2i& board_size,
+vector<sf::Vector2i> Paint::Activate(const sf::Vector2i& board_size,
 								const sf::Vector2i& coord) {
 	vector<sf::Vector2i> targets;
 	for (int i = 0; i < _num_affected_gems; i++) {
@@ -37,7 +31,7 @@ vector<sf::Vector2i> Paint::activate(const sf::Vector2i& board_size,
 
 
 
-vector<sf::Vector2i> Bomb::activate(const sf::Vector2i& board_size,
+vector<sf::Vector2i> Bomb::Activate(const sf::Vector2i& board_size,
 										const sf::Vector2i& coord) {
 	vector<sf::Vector2i> targets;
 	set<int> unique_targets;
@@ -55,6 +49,3 @@ vector<sf::Vector2i> Bomb::activate(const sf::Vector2i& board_size,
 	return targets;
 
 }
-
-
-
