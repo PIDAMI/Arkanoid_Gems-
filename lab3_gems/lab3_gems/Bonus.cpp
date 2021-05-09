@@ -1,6 +1,9 @@
 #include "Bonus.h"
 #include <set>
+#include <iostream>
 using namespace std;
+
+
 
 
 //
@@ -25,7 +28,11 @@ vector<sf::Vector2i> Paint::Activate(const sf::Vector2i& board_size,
 			}
 		}
 	}
+	std::cout << "paint bonus size: " << targets.size() << endl;
 	return targets;
+
+
+
 }
 
 
@@ -49,3 +56,5 @@ vector<sf::Vector2i> Bomb::Activate(const sf::Vector2i& board_size,
 	return targets;
 
 }
+sf::Texture Bomb::texture = sf::Texture();
+sf::Texture Paint::texture = sf::Texture();

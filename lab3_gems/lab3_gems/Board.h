@@ -4,14 +4,17 @@
 #include <set>
 #include "SFML/Graphics.hpp"
 
-
+#define DROP_THRESHOLD 3
 class Gem;
 
 class Board : public sf::IntRect {
+
 private:
-	std::shared_ptr<sf::RenderWindow> _window;
-	std::vector<std::vector<std::shared_ptr<Gem>>> _blocks;
-	std::vector<std::set<int>> _forDropping;
+	
+	std::vector<std::vector<std::shared_ptr<Gem>>> _gems;
+	sf::RenderWindow* _window;
+
+	std::vector<std::set<int>> _for_dropping;
 	int _dimension; // board is square 
 	int _space;
 	float _block_size;
@@ -20,12 +23,11 @@ private:
 	bool IfSequence(sf::Vector2i block_pos);
 	void DropStep(std::vector<int>& forStep);
 	void Dropping();
+	bool IsColorMatch(const sf::Vector2i& gem_pos, const sf::Vector2i& neighbor) const;
 public:
-	Board(int dimension, int space, float block_size, 
-		 std::shared_ptr<sf::RenderWindow> window);
-	int Dimension() { return _dimension; }
+	Board(int dimension, int space, float block_size, sf::RenderWindow* window);
+	int GetDimension() { return _dimension; }
 	void Draw();
 	void Swap(sf::Vector2i block1, sf::Vector2i block2);
 	void IfDropped(std::vector<sf::Vector2i>& for_check);
-	//	~Board();
 };
