@@ -4,35 +4,39 @@
 using namespace std;
 
 
-
-
-//
 vector<sf::Vector2i> Paint::Activate(const sf::Vector2i& board_size,
 								const sf::Vector2i& coord) {
 	vector<sf::Vector2i> targets;
 	for (int i = 0; i < _num_affected_gems; i++) {
 		while (true) {
-			sf::Vector2i targ = { coord.x + rand() % _num_affected_gems,
-								  coord.y + rand() % _num_affected_gems };
+			sf::Vector2i targ = { coord.x, coord.y};
+			
+			if (rand() % 2) // give random offset to coordinate
+				targ.x += rand()%PAINT_RADIUS;
+			else
+				targ.x -= rand() % PAINT_RADIUS;
+
+			if (rand() % 3)
+				targ.y -= rand() % PAINT_RADIUS;
+			else
+				targ.y += rand() % PAINT_RADIUS;
+
+			
 			// check if inside board and not a neighbor
 			if (!(targ == coord || (targ.x == coord.x && targ.y == coord.y + 1)
 				|| (targ.x == coord.x && targ.y == coord.y - 1)
 				|| (targ.y == coord.y && targ.x == coord.x - 1)
 				|| (targ.y == coord.y && targ.x == coord.x + 1))
-				&& 0 <= targ.x < board_size.x
-				&& 0 <= targ.y < board_size.y) {
+				&& 0 <= targ.x && targ.x < board_size.x
+				&& 0 <= targ.y && targ.y < board_size.y) {
 				
 				targets.push_back(targ);
 				break;
 			
 			}
 		}
-	}
-	std::cout << "paint bonus size: " << targets.size() << endl;
+	}	
 	return targets;
-
-
-
 }
 
 

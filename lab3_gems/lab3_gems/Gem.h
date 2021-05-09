@@ -4,7 +4,6 @@
 
 
 enum class COLORS {
-	BONUS = -1,
 	BLUE,
 	GREEN,
 	YELLOW,
@@ -20,11 +19,11 @@ class Gem: public sf::RectangleShape{
 private:
 
 	COLORS _color;
-	Bonus* _bonus;
+	std::shared_ptr<Bonus> _bonus;
 	//void set_bonus(std::shared_ptr<Bonus> bonus) { _bonus = bonus; }
 
 public:
-
+	
 	Gem(float x = 0.f, float y = 0.f, float size=0.f, COLORS color = COLORS::NUM_COLORS);
 	COLORS GetColor() const { return _color; };
 	void SetColor(COLORS new_color);

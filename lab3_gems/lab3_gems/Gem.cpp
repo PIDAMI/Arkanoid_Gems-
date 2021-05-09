@@ -38,10 +38,9 @@ bool Gem::SetRandomBonus() {
 	int bonus_threshold = rand() % 100;
 	if (bonus_threshold < BONUS_CHANCE && _bonus == nullptr) {
 		if (bonus_threshold % 2)
-			_bonus = new Bomb(getPosition());
+			_bonus = std::make_shared<Bomb>(Bomb(getPosition()));
 		else
-			_bonus = new Paint(getPosition());
-		SetColor(COLORS::BONUS);
+			_bonus = std::make_shared<Paint>(Paint(getPosition()));
 		return true;
 	}
 	return false;
@@ -50,13 +49,10 @@ bool Gem::SetRandomBonus() {
 vector<sf::Vector2i> Gem::ActivateBonus(const sf::Vector2i& board_size,
 										const sf::Vector2i& pos) {
 	auto affected_gems = _bonus->Activate(board_size, pos);
-	delete _bonus;
 	_bonus = nullptr;
 	return affected_gems;
 }
 
 void Gem::Move(sf::Vector2f speed) {
 	move(speed);
-	if (HasBonus())
-		_bonus->move(speed);
 }

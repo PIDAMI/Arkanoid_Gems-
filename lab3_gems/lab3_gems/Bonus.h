@@ -1,10 +1,11 @@
 #pragma once
 #include "Board.h"
 
-#define BONUS_CHANCE 10
+#define BONUS_CHANCE 5
 #define BOMB_TARGETS 5
 #define PAINT_TARGETS 3
-#define COMBO_SIZE_BONUS 4
+#define COMBO_SIZE_FOR_BONUS 3
+#define PAINT_RADIUS 3
 
 
 
