@@ -2,23 +2,17 @@
 
 using namespace std;
 
+const vector<sf::Color> Gem::AVAILABLE_COLORS = { 
+	  sf::Color::Blue, sf::Color::Green, sf::Color::Yellow,
+	  sf::Color::Cyan, sf::Color::White, sf::Color::Magenta,
+	  sf::Color::Red
+};
+
+
 void Gem::SetColor(COLORS color) {
 	_color = color;
-	if (color == COLORS::BLUE)
-		setFillColor(sf::Color::Blue);
-	else if (color == COLORS::GREEN)
-		setFillColor(sf::Color::Green);
-	else if (color == COLORS::YELLOW)
-		setFillColor(sf::Color::Yellow);
-	else if (color == COLORS::WHITE)
-		setFillColor(sf::Color::White);
-	else if (color == COLORS::RED)
-		setFillColor(sf::Color::Red);
-	else if (color == COLORS::CYAN)
-		setFillColor(sf::Color::Cyan);
-	else if (color == COLORS::MAGENTA)
-		setFillColor(sf::Color::Magenta);
-	
+	if (color != COLORS::NUM_COLORS)
+		setFillColor(AVAILABLE_COLORS[static_cast<int>(color)]);
 	
 }
 

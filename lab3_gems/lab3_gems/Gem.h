@@ -22,6 +22,9 @@ private:
 	std::shared_ptr<Bonus> _bonus;
 	//void set_bonus(std::shared_ptr<Bonus> bonus) { _bonus = bonus; }
 
+private:
+	static const std::vector<sf::Color> AVAILABLE_COLORS;
+
 public:
 	
 	Gem(float x = 0.f, float y = 0.f, float size=0.f, COLORS color = COLORS::NUM_COLORS);
