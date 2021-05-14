@@ -10,7 +10,6 @@ enum class TYPE {
 	DEFAULT
 };
 
-#define MAX_BLOCK_HEALTH 3
 
 
 
@@ -27,5 +26,6 @@ public:
 	virtual int ReduceHealth();
 	int GetHealth() const { return _health; };
 	virtual ~Block() {};
+	const static int MAX_HEALTH;
 };
 

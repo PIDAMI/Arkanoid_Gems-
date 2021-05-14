@@ -3,6 +3,7 @@
 
 using namespace sf;
 
+const int Block::MAX_HEALTH = 3;
 
 Block::Block(const sf::Vector2f& size, const sf::Vector2f& pos,
 			enum class TYPE type, sf::Color c) {
@@ -12,21 +13,21 @@ Block::Block(const sf::Vector2f& size, const sf::Vector2f& pos,
 	setOutlineColor(sf::Color::Black);
 	setOutlineThickness(0.5f);
 	setPosition(pos);
-	_health = MAX_BLOCK_HEALTH;
+	_health = MAX_HEALTH;
 	_type = type;
 }
 
 
 
-virtual int Block::ReduceHealth() {
+int Block::ReduceHealth() {
 	_health--;
 	if (_health == 0) {
 		setFillColor(Color::White);
 	}
-	if (_health == MAX_BLOCK_HEALTH - 1) {
+	if (_health == MAX_HEALTH - 1) {
 		setFillColor(Color::Yellow);
 	}
-	else if (_health == MAX_BLOCK_HEALTH - 2) {
+	else if (_health == MAX_HEALTH - 2) {
 		setFillColor(Color::Red);
 	}
 
