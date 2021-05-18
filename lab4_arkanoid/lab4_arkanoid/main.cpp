@@ -1,12 +1,14 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
-
+#include "BonusManager.h"
 using namespace sf;
 
 
 int main() {
-	RenderWindow window(sf::VideoMode(600, 400), "Arkanoid");
+	
 
+	RenderWindow window(sf::VideoMode(600, 400), "Arkanoid");
+	
 	while (window.isOpen())
 	{
 		Event event;
@@ -19,21 +21,6 @@ int main() {
 
 		window.clear(sf::Color::White);
 
-
-		CircleShape s(200.f);
-		
-		auto circle_shape = s.getGlobalBounds();
-		
-		RectangleShape z({ 10,10 });
-		auto square_shape = z.getGlobalBounds();
-		z.setFillColor(sf::Color::Blue);
-
-		s.setFillColor(sf::Color::Red);
-		window.draw(z);
-		window.draw(s);
-		if (square_shape.intersects(circle_shape)) {
-			std::cout << "pog\n";
-		}
 		window.display();
 	}
 	return 0;

@@ -4,7 +4,7 @@
 using namespace sf;
 
 const sf::Vector2f Ball::DEFAULT_BALL_SPEED = sf::Vector2f(5.f, 5.f);
-const int RANDOM_REFLECT_CHANCE = 10;
+const int Ball::RANDOM_REFLECT_CHANCE = 10;
 
 
 Ball::Ball(float rad, const sf::Vector2f& pos,const sf::Color& col) {
@@ -109,7 +109,7 @@ void Ball::MoveWithBar(int window_width) {
 
 
 
-void Ball::RespawnBall() {
+void Ball::Respawn() {
 	setPosition(_start_coord.x, _start_coord.y);
 	_speed = DEFAULT_BALL_SPEED;
 	_move_dir = { -1,-1 };
@@ -197,7 +197,6 @@ bool Ball::ReflectFromBlock(const Block& block) {
 
 	return hit;
 }
-
 
 
 void Ball::ReflectWall(int window_width) {

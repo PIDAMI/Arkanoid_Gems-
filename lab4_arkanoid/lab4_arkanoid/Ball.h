@@ -7,6 +7,8 @@
 class Bar;
 class Block;
 
+
+
 class Ball: public sf::CircleShape
 {
 private:
@@ -19,6 +21,7 @@ private:
 	bool _reflects_bottom;
 	bool _random_reflection;
 
+
 public:
 	static const sf::Vector2f DEFAULT_BALL_SPEED;
 	static const int RANDOM_REFLECT_CHANCE;
@@ -30,21 +33,27 @@ public:
 	sf::Vector2f GetBottomCoord() const;
 	sf::Vector2f GetRightCoord() const;
 	sf::Vector2f GetLeftCoord() const;
+	sf::Vector2f GetStartPos() const { return _start_coord; };
+	sf::Vector2f GetSpeed() const { return _speed; }
 	bool IsReflectableByBot() const { return _reflects_bottom; };
 	bool IsStickToBoard() const { return _stick_to_board; };
 
 	void SetRandReflection(bool refl) { _random_reflection = refl; };
 	void SetStickToBoard(bool stick) { _stick_to_board = stick; };
 	void SetBottomReflection(bool refl) { _reflects_bottom = refl; };
-	void SetSpeed(const sf::Vector2f& speed) { _speed = speed; }
+	void IncreaseSpeed(const sf::Vector2f& speed) { _speed += speed; }
 	
 	bool ReflectFromBlock(const Block& block);
+
+
 	void ReflectWall(int window_width);
 	void Move(int window_width);
 	void RandomlyReflect();
+	void k(){}
 	void MoveWithBar(int window_width);
 	void ReflectBar(const Bar& bar);
-	void RespawnBall();
+	void Draw(sf::RenderWindow& window) { window.draw(*this); };
+	void Respawn();
 	void SpeedUp(const sf::Vector2f increment); // cannot slow
 
 };

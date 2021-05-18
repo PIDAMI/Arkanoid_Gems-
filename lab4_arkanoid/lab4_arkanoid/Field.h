@@ -3,14 +3,14 @@
 #include <vector>
 
 
-typedef std::vector<std::vector<std::shared_ptr<Block>>> Grid;
 
 class Field
 {
 private:
-	Grid _grid;
-	sf::Vector2i _size;
+	std::vector<std::shared_ptr<Block>> _grid;
+	sf::Vector2u _size;
 	sf::Vector2f _pos;
+
 public:
 	const static int INDESTRCTABLE_BLOCK_SPAWN_CHANCE;
 	const static int SPEEDUP_BLOCK_SPAWN_CHANCE;
@@ -18,9 +18,18 @@ public:
 
 public:
 	//todo: Field contructor
-	Field(const sf::Vector2f& top, const sf::Vector2i& grid_size,
+	Field(const sf::Vector2f& top,const sf::Vector2u& size,
 		const sf::Vector2f& window_size, const sf::Vector2f& block_size);
-
+	//void LoadTextures();
+	void Draw(sf::RenderWindow& window);
+	void MoveMovingBlocks();
+	void AddMovingBlock(int window_width);
+	void ReduceHealth(unsigned pos);
+	// check if x,y is free for spawning new moving block
+	bool CheckXForNewMoving(float x, float y, int window_width);
+	void CheckCollisionsBetweenBlocks();
+	std::vector<std::shared_ptr<Block>> GetGrid() { return _grid; };
+	bool CheckGameEnd() const;
 
 };
 

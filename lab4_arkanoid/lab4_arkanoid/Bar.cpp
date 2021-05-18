@@ -7,8 +7,12 @@ using namespace sf;
 
 const float Bar::DEFAULT_BAR_SPEED = 10.f;
 
-Bar::Bar(float speed, const sf::Vector2f& size, const sf::Vector2f& pos, sf::Color c ) {
 
+
+Bar::Bar(const sf::Vector2f& size, const sf::Vector2f& pos, 
+        sf::Color c, float speed) {
+
+    _start_pos = pos;
 	setPosition(pos);
 	setSize(size);
 	setFillColor(c);
