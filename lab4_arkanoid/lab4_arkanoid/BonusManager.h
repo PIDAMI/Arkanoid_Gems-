@@ -7,12 +7,12 @@ class BonusManager
 private:
     std::vector <std::shared_ptr <Bonus>> _bonuses; 
 public:
-    BonusManager() {}
+    BonusManager() {};
     ~BonusManager() {}
     // bonus manager is a unique object, no need to make _textures static
     std::vector<sf::Texture> _textures;
 
-    void LoadTexture(int n); // image files have the same name as their enums val
+    void LoadTexture(); // image files have the same name as their enums val
 
 
     //void AddRandomBonus(float x, float y, float radius, float speed);

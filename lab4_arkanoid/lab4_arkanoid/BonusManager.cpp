@@ -4,16 +4,16 @@
 using namespace sf;
 
 void BonusManager::Draw(sf::RenderWindow& window) {
-     for (const auto& b : bonusesArray) 
+     for (const auto& b : _bonuses) 
          window.draw(*b); ;
 
 }
 
 
-void BonusManager::LoadTexture(int n) {
-    for (int i = _textures.size(); i < n; i++) {
+void BonusManager::LoadTexture() {
+    for (int i = 0; i < (int)BONUS_TYPE::DEFAULT; i++) {
         Texture texture;
-        texture.loadFromFile(std::to_string(i) + ".png");
+        texture.loadFromFile(std::to_string(i) + ".jpeg");
         _textures.push_back(texture);
     }
 }
@@ -43,27 +43,27 @@ std::shared_ptr <Bonus> bonus;
             _textures[(int)BONUS_TYPE::BOTTOM_REFLECT]);
         break;
     }
-    bonusesArray.push_back(bonus);
+    _bonuses.push_back(bonus);
 }
 
 void BonusManager::MoveAll(std::shared_ptr <Bar> bar, std::shared_ptr <Field> field,
                         std::shared_ptr <Ball> ball, float window_height) {
+    int i = 0;
+    for (auto& bonus:_bonuses) {
+        bonus->Move();
 
-    for (int i = 0; i < bonusesArray.size(); i++) {
-        bonusesArray[i]->Move();
-
-        if (bonusesArray[i]->IsContactedWithBar(*bar)) {
-            bonusesArray[i]->Activate(field, ball, bar);
-            bonusesArray.erase(bonusesArray.begin() + i);
+        if (bonus->IsContactedWithBar(*bar)) {
+            bonus->Activate(field, ball, bar);
+            _bonuses.erase(_bonuses.begin() + i);
             break;
         }
 
-        if (bonusesArray[i]->getPosition().y >= window_height) {
-            bonusesArray.erase(bonusesArray.begin() + i);
+        if (bonus->getPosition().y >= window_height) {
+            _bonuses.erase(_bonuses.begin() + i);
             break;
         }
 
-      
+        i++;
     }
 }
 

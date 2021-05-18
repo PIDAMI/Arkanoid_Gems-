@@ -17,10 +17,9 @@ public:
 	const static int BONUS_BLOCK_SPAWN_CHANCE;
 
 public:
-	//todo: Field contructor
 	Field(const sf::Vector2f& top,const sf::Vector2u& size,
 		const sf::Vector2f& window_size, const sf::Vector2f& block_size);
-	//void LoadTextures();
+	sf::Vector2u GetSize() const { return _size; };
 	void Draw(sf::RenderWindow& window);
 	void MoveMovingBlocks();
 	void AddMovingBlock(int window_width);

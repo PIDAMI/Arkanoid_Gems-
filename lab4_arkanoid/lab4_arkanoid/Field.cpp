@@ -1,8 +1,10 @@
 #include "Field.h"
+#include <iostream>
 #include "IndestructableBlock.h"
 #include "SpeedUpBlock.h"
 #include "MovingBlock.h"
 #include "BonusedBlock.h"
+
 using namespace sf;
 
 
@@ -21,8 +23,10 @@ void Field::Draw(RenderWindow& window) {
 
 void Field::ReduceHealth(unsigned pos) {
 	int health_left = _grid[pos]->ReduceHealth();
-	if (health_left == 0) 
+	if (health_left == 0) {
 		_grid.erase(_grid.begin() + pos);
+		std::cout << _grid.size() << std::endl;
+	}
 }
 
 // left blocks are indestructable -> restart
@@ -49,22 +53,23 @@ Field::Field(const sf::Vector2f& top,const Vector2u& size,
 			std::shared_ptr<Block> block;
 			int block_type = rand() % 100;
 
-			// todo bonuses
+			// todo _bonuses
+			Vector2f pos = { x,y };
 			if (block_type < BONUS_BLOCK_SPAWN_CHANCE) {
 				block = std::make_shared<BonusedBlock>
-					(new BonusedBlock(block_size, { x,y }));
+					(BonusedBlock(block_size, pos));
 			}
-			if (block_type < SPEEDUP_BLOCK_SPAWN_CHANCE) {
+			else if (block_type < SPEEDUP_BLOCK_SPAWN_CHANCE) {
 				block = std::make_shared <SpeedUpBlock>
-					(SpeedUpBlock(block_size, { x,y }));
+					(SpeedUpBlock(block_size, pos));
 			}
 			else if (block_type < INDESTRCTABLE_BLOCK_SPAWN_CHANCE) {
 				block = std::make_shared <IndestructableBlock>
-					(IndestructableBlock(block_size, { x,y }));
+					(IndestructableBlock(block_size, pos));
 			}
 			else {
 				block = std::make_shared <Block>
-					(Block(block_size, { x,y }));
+					(Block(block_size, pos));
 			}
 
 			_grid.push_back(block);
@@ -105,9 +110,11 @@ void Field::CheckCollisionsBetweenBlocks() {
 			auto block2_type = block2->GetType();
 
 			bool collision_block1_left =
-				fabs(block1_left_x - block2_right_x) <= MovingBlock::DEFAULT_BLOCK_SPEED;
+				fabs(block1_left_x - block2_right_x) 
+				<= MovingBlock::DEFAULT_BLOCK_SPEED;
 			bool collision_block2_right = 
-				fabs(block1_right_x - block2_left_x) <= MovingBlock::DEFAULT_BLOCK_SPEED;
+				fabs(block1_right_x - block2_left_x)
+				<= MovingBlock::DEFAULT_BLOCK_SPEED;
 			bool same_y_pos = (block1_top_y == block2_top_y);
 			bool both_moving = 
 				(block1_type == TYPE::MOVING) && (block2_type == TYPE::MOVING);
@@ -132,8 +139,14 @@ void Field::AddMovingBlock(int window_width) {
 		x_pos = (float)(rand() % (int)block_width * _size.x);
 	while (!CheckXForNewMoving(x_pos, y_pos,window_width));
 	auto block = std::make_shared <MovingBlock>
-		(x_pos, y_pos, block_width, block_height);
+		(Vector2f(block_width, block_height), Vector2f(x_pos, y_pos));
 	_grid.push_back(block);
+}
+
+
+void Field::MoveMovingBlocks() {
+	for (auto& block : _grid)
+		block->Move();
 }
 
 

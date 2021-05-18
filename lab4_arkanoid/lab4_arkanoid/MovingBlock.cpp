@@ -1,5 +1,6 @@
 #include "MovingBlock.h"
 
+const float MovingBlock::DEFAULT_BLOCK_SPEED = 1.f;
 
 void MovingBlock::Move(int window_width) {
     // change direction if touches walls

@@ -4,8 +4,8 @@
 using namespace sf;
 
 const unsigned int Game::FRAME_RATE = 100U;
-const Vector2u Game::FIELD_SIZE = { 6U,4U };
-const unsigned int Game::BALL_FELLOFF_PENALTY = 5U;
+const Vector2u Game::FIELD_SIZE = { 4U,6U };
+const unsigned int Game::BALL_FELLOFF_PENALTY = 3U;
 
 void Game::ShowScore() {
     Text text;
@@ -167,7 +167,7 @@ Game::Game(const sf::Vector2u& window_size) {
 
     _score_size = { window_size.x * 0.3f, window_size.y * 0.1f };
     score = 0;
-    scoreFont.loadFromFile("Resources/score_font.ttf");
+    scoreFont.loadFromFile("Thanks Autumn.ttf");
 
     
     Vector2f block_size = { (float)window_size.x / FIELD_SIZE.x,
@@ -188,5 +188,5 @@ Game::Game(const sf::Vector2u& window_size) {
                               bar_start_pos.y - 3 * ball_radius };
     ball = std::make_shared <Ball>(ball_radius,ball_start_pos);
    
-
+    _bonuses = std::make_shared<BonusManager>();
 }

@@ -1,28 +1,33 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
-#include "BonusManager.h"
+#include "Game.h"
+
 using namespace sf;
 
 
 int main() {
-	
+	srand((unsigned)time(0));
 
-	RenderWindow window(sf::VideoMode(600, 400), "Arkanoid");
-	
-	while (window.isOpen())
-	{
-		Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == Event::Closed)
-				window.close();
-		}
-		
+	Game GameLoop({800U,600U});
+	GameLoop.Start();
 
-		window.clear(sf::Color::White);
 
-		window.display();
-	}
+	//RenderWindow window(sf::VideoMode(800, 600), "Arkanoid");
+	//
+	//while (window.isOpen())
+	//{
+	//	Event event;
+	//	while (window.pollEvent(event))
+	//	{
+	//		if (event.type == Event::Closed)
+	//			window.close();
+	//	}
+	//	
+
+	//	window.clear(sf::Color::White);
+
+	//	window.display();
+	//}
 	return 0;
 }
 

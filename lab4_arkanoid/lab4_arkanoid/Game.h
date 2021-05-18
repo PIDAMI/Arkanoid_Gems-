@@ -11,7 +11,7 @@ private:
     const static sf::Vector2u FIELD_SIZE;
     const static unsigned int BALL_FELLOFF_PENALTY;
 private:
-    unsigned score;
+    int score;
 
     std::shared_ptr<sf::RenderWindow> window;  
     std::shared_ptr <Field> field;

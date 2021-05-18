@@ -88,7 +88,7 @@ public:
 class BotReflectBonus : public Bonus {
 public:	
 	virtual void Activate(std::shared_ptr<Field> field, std::shared_ptr<Ball> ball,
-						  std::shared_ptr<Bar> bar) {};
+						  std::shared_ptr<Bar> bar);
 	BotReflectBonus(const sf::Vector2f& pos, const sf::Texture& texture) :
 		Bonus(pos, texture, BONUS_TYPE::BOTTOM_REFLECT) {};
 
@@ -98,7 +98,7 @@ public:
 class ChangeTrajectoryBonus : public Bonus {
 public:
 	virtual void Activate(std::shared_ptr<Field> field, std::shared_ptr<Ball> ball,
-		std::shared_ptr<Bar> bar) {};
+		std::shared_ptr<Bar> bar);
 	ChangeTrajectoryBonus(const sf::Vector2f& pos, const sf::Texture& texture) :
 		Bonus(pos, texture, BONUS_TYPE::CHANGE_TRAJECTORY) {};
 
@@ -108,7 +108,7 @@ public:
 class MovingBlockBonus: public Bonus {
 public:
 	virtual void Activate(std::shared_ptr<Field> field, std::shared_ptr<Ball> ball,
-		std::shared_ptr<Bar> bar) {};
+		std::shared_ptr<Bar> bar);
 	MovingBlockBonus(const sf::Vector2f& pos, const sf::Texture& texture) :
 		Bonus(pos, texture, BONUS_TYPE::MOVING_BLOCK) {};
 

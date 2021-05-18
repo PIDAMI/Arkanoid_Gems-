@@ -64,3 +64,11 @@ void ChangeTrajectoryBonus::Activate(std::shared_ptr<Field> field, std::shared_p
 
 
 }
+
+void MovingBlockBonus::Activate(std::shared_ptr<Field> field, std::shared_ptr<Ball> ball,
+	std::shared_ptr<Bar> bar) {
+
+	int window_width = field->GetSize().x * field->GetGrid()[0]->getSize().x;
+
+	field->AddMovingBlock(window_width);
+}
