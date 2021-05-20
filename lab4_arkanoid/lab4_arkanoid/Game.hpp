@@ -1,8 +1,8 @@
 #pragma once
-#include "Field.h"
-#include "Bar.h"
-#include "Ball.h"
-#include "BonusManager.h"
+#include "Field.hpp"
+#include "Bar.hpp"
+#include "Ball.hpp"
+#include "BonusManager.hpp"
 
 class Game
 {

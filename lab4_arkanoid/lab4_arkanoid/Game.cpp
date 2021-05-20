@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "Game.hpp"
 
 
 using namespace sf;
@@ -186,7 +186,7 @@ Game::Game() {
 
     _score_size = { window_size.x * 0.3f, window_size.y * 0.1f };
     score = 0;
-    scoreFont.loadFromFile("Thanks Autumn.ttf");
+    scoreFont.loadFromFile("../resources/Thanks Autumn.ttf");
     InitObjects();
     
    

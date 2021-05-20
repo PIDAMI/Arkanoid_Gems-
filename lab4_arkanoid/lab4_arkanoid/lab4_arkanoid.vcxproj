@@ -142,17 +142,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Ball.h" />
-    <ClInclude Include="Bar.h" />
-    <ClInclude Include="Block.h" />
-    <ClInclude Include="Bonus.h" />
-    <ClInclude Include="BonusedBlock.h" />
-    <ClInclude Include="BonusManager.h" />
-    <ClInclude Include="Field.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="IndestructableBlock.h" />
-    <ClInclude Include="MovingBlock.h" />
-    <ClInclude Include="SpeedUpBlock.h" />
+    <ClInclude Include="Ball.hpp" />
+    <ClInclude Include="Bar.hpp" />
+    <ClInclude Include="Block.hpp" />
+    <ClInclude Include="Bonus.hpp" />
+    <ClInclude Include="BonusedBlock.hpp" />
+    <ClInclude Include="BonusManager.hpp" />
+    <ClInclude Include="Field.hpp" />
+    <ClInclude Include="Game.hpp" />
+    <ClInclude Include="IndestructableBlock.hpp" />
+    <ClInclude Include="MovingBlock.hpp" />
+    <ClInclude Include="SpeedUpBlock.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />

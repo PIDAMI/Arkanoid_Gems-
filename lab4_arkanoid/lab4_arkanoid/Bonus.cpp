@@ -1,5 +1,5 @@
-#include "Game.h"
-#include "Bonus.h"
+#include "Game.hpp"
+#include "Bonus.hpp"
 
 using namespace sf;
 

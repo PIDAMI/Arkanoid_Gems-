@@ -1,5 +1,5 @@
-#include "MovingBlock.h"
-#include "Game.h"
+#include "MovingBlock.hpp"
+#include "Game.hpp"
 
 const float MovingBlock::DEFAULT_BLOCK_SPEED = 1.f;
 

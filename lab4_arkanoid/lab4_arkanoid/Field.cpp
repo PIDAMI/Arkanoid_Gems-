@@ -1,10 +1,10 @@
-#include "Field.h"
+#include "Field.hpp"
 #include <iostream>
-#include "IndestructableBlock.h"
-#include "SpeedUpBlock.h"
-#include "MovingBlock.h"
-#include "BonusedBlock.h"
-#include "Game.h"
+#include "IndestructableBlock.hpp"
+#include "SpeedUpBlock.hpp"
+#include "MovingBlock.hpp"
+#include "BonusedBlock.hpp"
+#include "Game.hpp"
 
 using namespace sf;
 
