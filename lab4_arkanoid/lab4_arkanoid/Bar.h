@@ -15,13 +15,13 @@ public:
 		sf::Color c = sf::Color::Blue, float speed = DEFAULT_BAR_SPEED);
 	void SetSize(const sf::Vector2f& size) { setSize(size); }
 	void SetColor(sf::Color c) { setFillColor(c); };
-	void Move(float window_width);
+	void Move();
 	bool IsBallStick() const { return _ball_stick; };
 	float GetSpeed() const { return _speed; };
 	void SetSpeed(float speed) { _speed = speed; };
 	void SetBallStick(bool ball_stick) { _ball_stick = ball_stick; };
 	void Respawn() { setPosition(_start_pos); };
-	void Draw(sf::RenderWindow& window) { window.draw(*this); };
+	void Draw(std::shared_ptr<sf::RenderWindow> window) { window->draw(*this); };
 	sf::Vector2f GetCoord() const { return getPosition(); };
 	sf::Vector2f GetSize() const { return getSize(); };
 	static const float DEFAULT_BAR_SPEED;

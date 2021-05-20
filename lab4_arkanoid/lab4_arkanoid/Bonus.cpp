@@ -1,12 +1,10 @@
+#include "Game.h"
 #include "Bonus.h"
-#include "Bar.h"
-#include "Ball.h"
-#include "Field.h"
 
 using namespace sf;
 
 const float Bonus::DEFAULT_BONUS_SPEED = 1.f;
-const int Bonus::BONUS_SPAWN_CHANCE = 10;
+const int Bonus::BONUS_SPAWN_CHANCE = 80;
 const sf::Vector2u Bonus::DEFAULT_SPRITE_SIZE = Vector2u(40,40);
 const float BarChangeBonus::DEFAULT_SIZE_MULTIPLIER = 1.4f;
 const float BallSpeedBonus::DEFAULT_SPEED_MULTIPLIER = 1.2f;
@@ -46,7 +44,6 @@ void BallSpeedBonus::Activate(std::shared_ptr<Field> field, std::shared_ptr<Ball
 void BarStickBonus::Activate(std::shared_ptr<Field> field, std::shared_ptr<Ball> ball,
 	std::shared_ptr<Bar> bar) {
 	bar->SetBallStick(true);
-	bar->SetColor(sf::Color::Magenta);
 }
 
 
@@ -54,7 +51,7 @@ void BotReflectBonus::Activate(std::shared_ptr<Field> field, std::shared_ptr<Bal
 	std::shared_ptr<Bar> bar) {
 
 	ball->SetBottomReflection(true);
-	ball->setFillColor(sf::Color::Magenta);
+	ball->setFillColor(sf::Color::Cyan);
 }
 
 void ChangeTrajectoryBonus::Activate(std::shared_ptr<Field> field, std::shared_ptr<Ball> ball,
@@ -68,7 +65,6 @@ void ChangeTrajectoryBonus::Activate(std::shared_ptr<Field> field, std::shared_p
 void MovingBlockBonus::Activate(std::shared_ptr<Field> field, std::shared_ptr<Ball> ball,
 	std::shared_ptr<Bar> bar) {
 
-	int window_width = field->GetSize().x * field->GetGrid()[0]->getSize().x;
-
-	field->AddMovingBlock(window_width);
+	
+	field->AddMovingBlock();
 }

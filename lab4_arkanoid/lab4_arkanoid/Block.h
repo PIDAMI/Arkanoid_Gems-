@@ -12,11 +12,10 @@ enum class TYPE {
 };
 
 
-class Block:public sf::RectangleShape
+class Block: public sf::RectangleShape
 {
 private:
 	int _health;
-	sf::Vector2f size;
 	enum class TYPE _type;
 	int _move_dir;
 
@@ -25,8 +24,6 @@ private:
 public:
 	Block(const sf::Vector2f& size,const sf::Vector2f& pos, 
 		enum class TYPE type = TYPE::NORMAL,sf::Color c = sf::Color::Green);
-	//Block() :_health(MAX_HEALTH), size({ 40.f,40.f }), _type(TYPE::NORMAL), _move_dir(1)
-	//{};
 	virtual int ReduceHealth();
 	int GetHealth() const { return _health; };
 	virtual ~Block() {};

@@ -11,6 +11,6 @@ public:
     MovingBlock(const sf::Vector2f& size, const sf::Vector2f& pos) :
         Block(size, pos, TYPE::MOVING), _speed(DEFAULT_BLOCK_SPEED) {};
 
-    virtual void Move(int window_width);
+    virtual void Move();
 };
 

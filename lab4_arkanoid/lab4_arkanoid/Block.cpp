@@ -11,8 +11,9 @@ Block::Block(const sf::Vector2f& size, const sf::Vector2f& pos,
 	setSize(size);
 	setFillColor(c);
 	setOutlineColor(sf::Color::Black);
-	setOutlineThickness(0.5f);
+	setOutlineThickness(1.5f);
 	setPosition(pos);
+	_move_dir = -1;
 	_health = MAX_HEALTH;
 	_type = type;
 }

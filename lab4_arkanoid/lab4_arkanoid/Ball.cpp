@@ -1,9 +1,7 @@
-#include "Ball.h"
-#include "Bar.h"
-#include "Block.h"
+#include "Game.h"
 using namespace sf;
 
-const sf::Vector2f Ball::DEFAULT_BALL_SPEED = sf::Vector2f(5.f, 5.f);
+const sf::Vector2f Ball::DEFAULT_BALL_SPEED = sf::Vector2f(3.7f, 3.7f);
 const int Ball::RANDOM_REFLECT_CHANCE = 10;
 
 
@@ -46,9 +44,9 @@ Vector2f Ball::GetBottomCoord() const {
 
 
 
-void Ball::Move(int window_width) {
+void Ball::Move() {
 	if (_stick_to_board)
-		MoveWithBar(window_width);
+		MoveWithBar();
 	else {
 		if (_random_reflection)
 			RandomlyReflect();
@@ -93,7 +91,7 @@ void Ball::ReflectBar(const Bar& bar) {
 
 
 
-void Ball::MoveWithBar(int window_width) {
+void Ball::MoveWithBar() {
 	
 	auto x_coord = getPosition().x;
 
@@ -101,7 +99,7 @@ void Ball::MoveWithBar(int window_width) {
 		if (x_coord >= 0)
 			move({ -Bar::DEFAULT_BAR_SPEED, 0 });
 	if (Keyboard::isKeyPressed(Keyboard::Right) || Keyboard::isKeyPressed(Keyboard::D))
-		if (x_coord + 2 * getRadius() <= window_width)
+		if (x_coord + 2 * getRadius() <= Game::WINDOW_SIZE.x)
 			move({ Bar::DEFAULT_BAR_SPEED, 0 });
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		_stick_to_board = false;
@@ -135,7 +133,7 @@ bool Ball::ReflectFromBlock(const Block& block) {
 
 	float max_dist = sqrt(_speed.y * _speed.y + _speed.x * _speed.x);
 
-	bool y_more_blocks_bot = fabs(ball_pos.y - (block_pos.y + health)) < max_dist;
+	bool y_more_blocks_bot = fabs(ball_pos.y - (block_pos.y + block_size.y)) < max_dist;
 	bool y_less_blocks_top = fabs(ball_pos.y + 2 * radius - block_pos.y) < max_dist;
 	bool x_more_blocks_left = fabs(ball_pos.x + 2 * radius - block_pos.x) < max_dist;
 	bool x_less_blocks_right = fabs(ball_pos.x - (block_pos.x + block_size.x)) < max_dist;
@@ -199,14 +197,16 @@ bool Ball::ReflectFromBlock(const Block& block) {
 }
 
 
-void Ball::ReflectWall(int window_width) {
+void Ball::ReflectWall() {
 	auto pos = getPosition();
 	
-	float max_dist = sqrt(_speed.y * _speed.y + _speed.x * _speed.x);
-	bool fell_left = getPosition().x <= max_dist;
-	bool fell_right = fabs(pos.x + 2 * getRadius() - max_dist) >= window_width;
-	bool fell_Top = pos.y <= max_dist;
-	bool fell_bot = fabs(pos.y - window_width) <= max_dist;
+	bool fell_left = pos.x <= _speed.x;
+
+	bool fell_right = fabs(pos.x + 2 * getRadius() - _speed.x) >= Game::WINDOW_SIZE.x;
+
+	bool fell_Top = pos.y <= _speed.y;
+
+	bool fell_bot = fabs(pos.y + 2 * getRadius() - Game::WINDOW_SIZE.y) <= _speed.y;
 
 	if (fell_left || fell_right)
 		_move_dir.x *= -1;
@@ -214,8 +214,16 @@ void Ball::ReflectWall(int window_width) {
 		_move_dir.y *= -1;
 	if (_reflects_bottom && fell_bot) {
 		_move_dir.y *= -1;
-		move({ 0, -_speed.y });
+		//move({ 0,  -_speed.y });
 		_reflects_bottom = false;
-		//setFillColor(sf::Color::White);
+		setFillColor(sf::Color::Blue);
 	}
+
+	//float max_dist = sqrt(_speed.y * _speed.y + _speed.x * _speed.x);
+	//bool fell_left = pos.x <= max_dist;
+	//bool fell_Top = pos.y <= max_dist;
+	//bool fell_right = fabs(pos.x + 2 * getRadius() - max_dist) >= Game::WINDOW_SIZE.x;
+	//bool fell_bot = fabs(pos.y + 2 * getRadius() - Game::WINDOW_SIZE.x) <= max_dist;
+
+
 }

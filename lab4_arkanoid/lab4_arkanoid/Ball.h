@@ -45,14 +45,13 @@ public:
 	
 	bool ReflectFromBlock(const Block& block);
 
-
-	void ReflectWall(int window_width);
-	void Move(int window_width);
+	void ReflectWall();
+	void Move();
 	void RandomlyReflect();
 	void k(){}
-	void MoveWithBar(int window_width);
+	void MoveWithBar();
 	void ReflectBar(const Bar& bar);
-	void Draw(sf::RenderWindow& window) { window.draw(*this); };
+	void Draw(std::shared_ptr<sf::RenderWindow> window) { window->draw(*this); };
 	void Respawn();
 	void SpeedUp(const sf::Vector2f increment); // cannot slow
 

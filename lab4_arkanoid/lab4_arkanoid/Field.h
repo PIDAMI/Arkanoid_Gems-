@@ -20,12 +20,12 @@ public:
 	Field(const sf::Vector2f& top,const sf::Vector2u& size,
 		const sf::Vector2f& window_size, const sf::Vector2f& block_size);
 	sf::Vector2u GetSize() const { return _size; };
-	void Draw(sf::RenderWindow& window);
+	void Draw(std::shared_ptr<sf::RenderWindow> window);
 	void MoveMovingBlocks();
-	void AddMovingBlock(int window_width);
+	void AddMovingBlock();
 	void ReduceHealth(unsigned pos);
 	// check if x,y is free for spawning new moving block
-	bool CheckXForNewMoving(float x, float y, int window_width);
+	bool CheckXForNewMoving(float x, float y);
 	void CheckCollisionsBetweenBlocks();
 	std::vector<std::shared_ptr<Block>> GetGrid() { return _grid; };
 	bool CheckGameEnd() const;
