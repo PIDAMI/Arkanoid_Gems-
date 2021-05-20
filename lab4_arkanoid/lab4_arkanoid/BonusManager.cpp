@@ -13,7 +13,7 @@ void BonusManager::Draw(std::shared_ptr<sf::RenderWindow> window) {
 void BonusManager::LoadTexture() {
     for (int i = 0; i < (int)BONUS_TYPE::DEFAULT; i++) {
         Texture texture;
-        texture.loadFromFile("../images/" + std::to_string(i) + ".jpg");
+        texture.loadFromFile("../resources/" + std::to_string(i) + ".jpg");
         _textures.push_back(texture);
     }
     std::cout << "textures:" << _textures.size() << std::endl;
