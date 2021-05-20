@@ -27,6 +27,7 @@ public:
 	// check if x,y is free for spawning new moving block
 	bool CheckXForNewMoving(float x, float y);
 	void CheckCollisionsBetweenBlocks();
+	int NumMovingBlocks() const;
 	std::vector<std::shared_ptr<Block>> GetGrid() { return _grid; };
 	bool CheckGameEnd() const;
 

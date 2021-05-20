@@ -50,7 +50,7 @@ public:
 	void RandomlyReflect();
 	void k(){}
 	void MoveWithBar();
-	void ReflectBar(const Bar& bar);
+	void ReflectBar(std::shared_ptr<Bar> bar);
 	void Draw(std::shared_ptr<sf::RenderWindow> window) { window->draw(*this); };
 	void Respawn();
 	void SpeedUp(const sf::Vector2f increment); // cannot slow

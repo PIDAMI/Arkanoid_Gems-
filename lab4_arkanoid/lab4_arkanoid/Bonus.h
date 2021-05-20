@@ -43,7 +43,8 @@ public:
 	virtual void Activate(std::shared_ptr<Field> field, std::shared_ptr<Ball> ball,
 						  std::shared_ptr<Bar> bar) = 0;
 	bool IsContactedWithBar(const Bar& bar) const;
-	void Draw(sf::RenderWindow& window) { window.draw(*this); };
+	int GetType() const { return (int)_type; };
+	void Draw(std::shared_ptr<sf::RenderWindow> window) { window->draw(*this); };
 };
 
 class BarChangeBonus : public Bonus {

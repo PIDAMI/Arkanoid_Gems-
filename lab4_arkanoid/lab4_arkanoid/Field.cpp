@@ -9,11 +9,9 @@
 using namespace sf;
 
 
-const int Field::INDESTRCTABLE_BLOCK_SPAWN_CHANCE = 10;
-const int Field::SPEEDUP_BLOCK_SPAWN_CHANCE = 8;
-const int Field::BONUS_BLOCK_SPAWN_CHANCE = 5;
-//const std::vector<Texture> Field::TEXTURES;
-
+const int Field::INDESTRCTABLE_BLOCK_SPAWN_CHANCE = 12;
+const int Field::SPEEDUP_BLOCK_SPAWN_CHANCE = 10;
+const int Field::BONUS_BLOCK_SPAWN_CHANCE = 8;
 
 void Field::Draw(std::shared_ptr<sf::RenderWindow> window) {
 	for (const auto& block : _grid) {
@@ -73,9 +71,9 @@ Field::Field(const sf::Vector2f& top,const Vector2u& size,
 			}
 
 			_grid.push_back(block);
-			x += block_size.x;
+			x += (block_size.x );
 		}
-		y += block_size.y;
+		y += (block_size.y);
 		x = top.x;
 	}
 }
@@ -96,20 +94,22 @@ bool Field::CheckXForNewMoving(float x, float y) {
 		
 	}
 
-
 	return true;
 }
 
 
 void Field::CheckCollisionsBetweenBlocks() {
 	for (auto& block1 : _grid) {
-
+		if (block1->GetType() != TYPE::MOVING)
+			continue;
 		float block1_left_x = block1->getPosition().x;
 		float block1_right_x = block1_left_x + block1->getSize().x;
 		float block1_top_y = block1->getPosition().y;
 		auto block1_type = block1->GetType();
 
 		for (auto& block2 : _grid) {
+			if (block2->GetType() != TYPE::MOVING)
+				continue;
 
 			float block2_left_x = block2->getPosition().x;
 			float block2_right_x = block2_left_x + block2->getSize().x;
@@ -123,13 +123,10 @@ void Field::CheckCollisionsBetweenBlocks() {
 				fabs(block1_right_x - block2_left_x)
 				<= MovingBlock::DEFAULT_BLOCK_SPEED;
 			bool same_y_pos = (block1_top_y == block2_top_y);
-			bool both_moving = 
-				(block1_type == TYPE::MOVING) && (block2_type == TYPE::MOVING);
-
 			
-			if (collision_block1_left && same_y_pos && both_moving)
+			if (collision_block1_left && same_y_pos)
 				block1->SetDirection(1);
-			else if (collision_block2_right && same_y_pos && both_moving)
+			else if (collision_block2_right && same_y_pos )
 				block1->SetDirection(-1);
 		}
 	}
@@ -140,18 +137,28 @@ void Field::AddMovingBlock() {
 	float block_width = _grid[0]->getSize().x;
 	float block_height = _grid[0]->getSize().y;
 	float x_pos;
+	// checking if there are more moving blocks than number of blocks in a row
+	// if so, need to give y_pos a bigger offset from the main grid
+	int num_free_line = NumMovingBlocks() % _size.x;
 	// spawns in new line; not in line with not moving blocks
-	//float y_pos = Field::_pos.y + 1.05f * _size.y *  block_height;
-	float y_pos = _grid[_grid.size() - 1]->getPosition().y + block_height;
+	float y_pos = Field::_pos.y + 1.05f * (num_free_line + _size.y) *  block_height;
 
 	do
-		x_pos = (float)(rand() % (int)block_width * _size.x);
+		x_pos = (float)(rand() % (int)(Game::WINDOW_SIZE.x - block_width));
 	while (!CheckXForNewMoving(x_pos, y_pos));
 	auto block = std::make_shared <MovingBlock>
 		(Vector2f(block_width, block_height), Vector2f(x_pos, y_pos));
 	_grid.push_back(block);
 }
 
+int Field::NumMovingBlocks() const {
+	int i = 0;
+	for (const auto& b : _grid) {
+		if (b->GetType() == TYPE::MOVING)
+			i++;
+	}
+	return i;
+}
 
 void Field::MoveMovingBlocks() {
 	for (auto& block : _grid)

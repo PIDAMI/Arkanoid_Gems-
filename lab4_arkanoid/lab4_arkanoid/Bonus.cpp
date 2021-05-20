@@ -4,8 +4,8 @@
 using namespace sf;
 
 const float Bonus::DEFAULT_BONUS_SPEED = 1.f;
-const int Bonus::BONUS_SPAWN_CHANCE = 80;
-const sf::Vector2u Bonus::DEFAULT_SPRITE_SIZE = Vector2u(40,40);
+const int Bonus::BONUS_SPAWN_CHANCE = 10;
+const sf::Vector2u Bonus::DEFAULT_SPRITE_SIZE = Vector2u(60U,60U);
 const float BarChangeBonus::DEFAULT_SIZE_MULTIPLIER = 1.4f;
 const float BallSpeedBonus::DEFAULT_SPEED_MULTIPLIER = 1.2f;
 
@@ -43,6 +43,7 @@ void BallSpeedBonus::Activate(std::shared_ptr<Field> field, std::shared_ptr<Ball
 
 void BarStickBonus::Activate(std::shared_ptr<Field> field, std::shared_ptr<Ball> ball,
 	std::shared_ptr<Bar> bar) {
+	bar->SetColor(sf::Color::Magenta);
 	bar->SetBallStick(true);
 }
 
@@ -58,7 +59,7 @@ void ChangeTrajectoryBonus::Activate(std::shared_ptr<Field> field, std::shared_p
 	std::shared_ptr<Bar> bar) {
 	
 	ball->SetRandReflection(true);
-
+	ball->setFillColor(sf::Color::Red);
 
 }
 

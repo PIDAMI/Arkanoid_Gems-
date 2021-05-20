@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <iostream>
 using namespace sf;
 
 const sf::Vector2f Ball::DEFAULT_BALL_SPEED = sf::Vector2f(3.7f, 3.7f);
@@ -62,26 +63,27 @@ void Ball::RandomlyReflect() {
 			_move_dir.y *= -1;
 		else	
 			_move_dir.x *= -1;
-
+		setFillColor(sf::Color::Blue);
 		_random_reflection = false;
 	}
 }
 
 
-void Ball::ReflectBar(const Bar& bar) {
+void Ball::ReflectBar(std::shared_ptr<Bar> bar) {
 	auto ball_pos = getPosition();
 	auto rad = getRadius();
-	auto bar_pos = bar.GetCoord();
+	auto bar_pos = bar->GetCoord();
 
 	bool y_lower_bars_top = abs(ball_pos.y + 2 * rad - bar_pos.y) < _speed.y;
 	bool x_to_right_from_bar_left = ball_pos.x >= bar_pos.x;
-	bool x_to_left_from_bar_right = ball_pos.x <= bar_pos.x + bar.GetSize().x;
+	bool x_to_left_from_bar_right = ball_pos.x <= bar_pos.x + bar->GetSize().x;
 
 	if (y_lower_bars_top && x_to_right_from_bar_left && x_to_left_from_bar_right) {
 		_move_dir.y *= -1;
-		if (bar.IsBallStick()) { // bar picks up bonus, it knows if ball's stick earlier
+		if (bar->IsBallStick()) { // bar picks up bonus, it knows if ball's stick earlier
 			_stick_to_board = true;
 			setPosition(ball_pos.x, _start_coord.y);
+			bar->SetColor(sf::Color::Blue);
 		}
 	}
 
@@ -101,8 +103,10 @@ void Ball::MoveWithBar() {
 	if (Keyboard::isKeyPressed(Keyboard::Right) || Keyboard::isKeyPressed(Keyboard::D))
 		if (x_coord + 2 * getRadius() <= Game::WINDOW_SIZE.x)
 			move({ Bar::DEFAULT_BAR_SPEED, 0 });
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) 
 		_stick_to_board = false;
+
+
 }
 
 
@@ -214,16 +218,35 @@ void Ball::ReflectWall() {
 		_move_dir.y *= -1;
 	if (_reflects_bottom && fell_bot) {
 		_move_dir.y *= -1;
-		//move({ 0,  -_speed.y });
 		_reflects_bottom = false;
 		setFillColor(sf::Color::Blue);
 	}
 
-	//float max_dist = sqrt(_speed.y * _speed.y + _speed.x * _speed.x);
-	//bool fell_left = pos.x <= max_dist;
-	//bool fell_Top = pos.y <= max_dist;
-	//bool fell_right = fabs(pos.x + 2 * getRadius() - max_dist) >= Game::WINDOW_SIZE.x;
-	//bool fell_bot = fabs(pos.y + 2 * getRadius() - Game::WINDOW_SIZE.x) <= max_dist;
-
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//float max_dist = sqrt(_speed.y * _speed.y + _speed.x * _speed.x);
+//bool fell_left = pos.x <= max_dist;
+//bool fell_Top = pos.y <= max_dist;
+//bool fell_right = fabs(pos.x + 2 * getRadius() - max_dist) >= Game::WINDOW_SIZE.x;
+//bool fell_bot = fabs(pos.y + 2 * getRadius() - Game::WINDOW_SIZE.x) <= max_dist;

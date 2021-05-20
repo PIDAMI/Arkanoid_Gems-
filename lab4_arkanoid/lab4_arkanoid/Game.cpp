@@ -149,7 +149,7 @@ void Game::MoveAll() {
 
 void Game::Reflect() {
     ball->ReflectWall();
-    ball->ReflectBar(*bar);
+    ball->ReflectBar(bar);
     BallReflectBlocks();
     field->CheckCollisionsBetweenBlocks();
 
@@ -164,13 +164,13 @@ void Game::InitObjects(){
         (field_top_coord, FIELD_SIZE, (Vector2f)window_size, block_size);
 
 
-    Vector2f bar_size = { 0.3f * window_size.x, 0.05f * window_size.x };
+    Vector2f bar_size = { 0.25f * window_size.x, 0.05f * window_size.y };
     Vector2f bar_start_pos = { 1.5f * bar_size.x, 0.9f * window_size.y };
 
     bar = std::make_shared <Bar>(bar_size, bar_start_pos);
 
 
-    float ball_radius = (block_size.x + block_size.y) / 25.f;
+    float ball_radius = (block_size.x + block_size.y) / 20.f;
     Vector2f ball_start_pos = { bar_start_pos.x + bar_size.x / 2 - ball_radius / 2,
                               bar_start_pos.y - 3 * ball_radius };
     ball = std::make_shared <Ball>(ball_radius, ball_start_pos);

@@ -21,6 +21,7 @@ private:
 
 private:
 	const static int MAX_HEALTH;
+	
 public:
 	Block(const sf::Vector2f& size,const sf::Vector2f& pos, 
 		enum class TYPE type = TYPE::NORMAL,sf::Color c = sf::Color::Green);
