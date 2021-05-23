@@ -8,6 +8,7 @@ const int Bonus::BONUS_SPAWN_CHANCE = 10;
 const sf::Vector2u Bonus::DEFAULT_SPRITE_SIZE = Vector2u(60U,60U);
 const float BarChangeBonus::DEFAULT_SIZE_MULTIPLIER = 1.4f;
 const float BallSpeedBonus::DEFAULT_SPEED_MULTIPLIER = 1.2f;
+const int Bonus::NUM_BONUS_TYPES = 6;
 
 bool Bonus::IsContactedWithBar(const Bar& bar) const {
 

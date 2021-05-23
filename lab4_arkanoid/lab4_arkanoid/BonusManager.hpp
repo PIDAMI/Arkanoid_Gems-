@@ -18,8 +18,6 @@ public:
 
     void AddRandomBonus(const sf::Vector2f& pos);
 
-
-
     void Draw(std::shared_ptr<sf::RenderWindow> window);
 
     void MoveAll(std::shared_ptr <Bar> bar, std::shared_ptr <Field> field,

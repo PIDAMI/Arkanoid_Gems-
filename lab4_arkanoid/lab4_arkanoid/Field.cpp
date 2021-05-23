@@ -9,9 +9,9 @@
 using namespace sf;
 
 
-const int Field::INDESTRCTABLE_BLOCK_SPAWN_CHANCE = 12;
-const int Field::SPEEDUP_BLOCK_SPAWN_CHANCE = 10;
-const int Field::BONUS_BLOCK_SPAWN_CHANCE = 8;
+const int Field::INDESTRCTABLE_BLOCK_SPAWN_CHANCE = 20;
+const int Field::SPEEDUP_BLOCK_SPAWN_CHANCE = 18;
+const int Field::BONUS_BLOCK_SPAWN_CHANCE = 15;
 
 void Field::Draw(std::shared_ptr<sf::RenderWindow> window) {
 	for (const auto& block : _grid) {
